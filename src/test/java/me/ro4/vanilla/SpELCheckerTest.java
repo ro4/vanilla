@@ -15,7 +15,7 @@ public class SpELCheckerTest {
     public void setUp() {
         checker = new SpELChecker();
         ctx = new Context();
-        ctx.setAttribute("args", "hello");
+        ctx.setAttribute(MagicMark.ARGS_NAME, "hello");
     }
 
     @Test
@@ -32,5 +32,18 @@ public class SpELCheckerTest {
     public void testNoExpression() {
         ctx.removeAttribute(MagicMark.EXPRESSION);
         Assert.assertThrows(ExpressionException.class, () -> checker.pass(ctx));
+    }
+
+    @Test
+    public void testArgs() {
+        Object[] args = new Object[3];
+        args[0] = 1;
+        args[1] = 2;
+        args[2] = 3;
+        ctx.setAttribute(MagicMark.ARGS_NAME, args);
+        ctx.setAttribute(MagicMark.EXPRESSION, "#args[1] > #args[0]");
+        Assert.assertTrue(checker.pass(ctx));
+        ctx.setAttribute(MagicMark.EXPRESSION, "#args[1] > #args[2]");
+        Assert.assertFalse(checker.pass(ctx));
     }
 }
