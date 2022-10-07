@@ -8,11 +8,13 @@ import org.springframework.aop.Pointcut;
 import org.springframework.aop.support.AbstractPointcutAdvisor;
 import org.springframework.aop.support.ComposablePointcut;
 import org.springframework.beans.BeansException;
+import org.springframework.beans.factory.BeanFactory;
+import org.springframework.beans.factory.BeanFactoryAware;
 import org.springframework.beans.factory.InitializingBean;
+import org.springframework.beans.factory.ListableBeanFactory;
 import org.springframework.beans.factory.config.BeanDefinition;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.annotation.Role;
+import org.springframework.core.annotation.AnnotationAwareOrderComparator;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -20,13 +22,13 @@ import java.util.List;
 
 @Role(BeanDefinition.ROLE_SUPPORT)
 @Component
-public class CheckConfiguration extends AbstractPointcutAdvisor implements InitializingBean, ApplicationContextAware {
+public class CheckConfiguration extends AbstractPointcutAdvisor implements InitializingBean, BeanFactoryAware {
 
     private Advice advice;
 
     private Pointcut pointcut;
 
-    private ApplicationContext applicationContext;
+    private BeanFactory beanFactory;
 
     @Override
     public Pointcut getPointcut() {
@@ -40,9 +42,13 @@ public class CheckConfiguration extends AbstractPointcutAdvisor implements Initi
 
     @Override
     public void afterPropertiesSet() {
-        List<CheckListener> listeners = new ArrayList<>(applicationContext.getBeansOfType(CheckListener.class).values());
         CheckTemplate checkTemplate = new CheckTemplate();
-        checkTemplate.setListeners(listeners.toArray(new CheckListener[0]));
+        if (beanFactory instanceof ListableBeanFactory) {
+            List<CheckListener> listeners = new ArrayList<>(((ListableBeanFactory) beanFactory)
+                    .getBeansOfType(CheckListener.class).values());
+            AnnotationAwareOrderComparator.sort(listeners);
+            checkTemplate.setListeners(listeners.toArray(new CheckListener[0]));
+        }
         checkTemplate.setChecker(new SpELChecker());
         pointcut = new ComposablePointcut(new CheckableMethodMatcher());
         CheckableMethodInterceptor checkableMethodInterceptor = new CheckableMethodInterceptor();
@@ -51,7 +57,7 @@ public class CheckConfiguration extends AbstractPointcutAdvisor implements Initi
     }
 
     @Override
-    public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
-        this.applicationContext = applicationContext;
+    public void setBeanFactory(BeanFactory beanFactory) throws BeansException {
+        this.beanFactory = beanFactory;
     }
 }

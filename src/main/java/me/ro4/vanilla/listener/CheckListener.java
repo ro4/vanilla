@@ -4,19 +4,11 @@ import me.ro4.vanilla.support.Context;
 
 public interface CheckListener {
 
-    default void onOpen(Context ctx) {
+    void onOpen(Context ctx);
 
-    }
+    void onPass(Context ctx);
 
-    default void onPass(Context ctx) {
+    void onReject(Context ctx);
 
-    }
-
-    default void onReject(Context ctx) {
-
-    }
-
-    default void onError(Context ctx, Throwable throwable) {
-
-    }
+    void onError(Context ctx, Throwable throwable);
 }
