@@ -32,6 +32,7 @@ public class CheckTemplate {
         this.checker = checker;
     }
 
+    @SuppressWarnings("unused")
     public Checker getChecker() {
         return checker;
     }
@@ -72,7 +73,7 @@ public class CheckTemplate {
         }
     }
 
-    protected void doOnError(Context ctx, Throwable throwable){
+    protected void doOnError(Context ctx, Throwable throwable) {
         for (int i = this.listeners.length; i-- > 0; ) {
             this.listeners[i].onError(ctx, throwable);
         }
