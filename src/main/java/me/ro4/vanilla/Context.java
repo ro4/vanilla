@@ -1,4 +1,4 @@
-package me.ro4.vanilla.support;
+package me.ro4.vanilla;
 
 import org.springframework.core.AttributeAccessorSupport;
 

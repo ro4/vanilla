@@ -1,7 +1,8 @@
 package me.ro4.vanilla;
 
+import me.ro4.vanilla.check.Checker;
+import me.ro4.vanilla.check.SpELChecker;
 import me.ro4.vanilla.constant.MagicMark;
-import me.ro4.vanilla.support.Context;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -41,9 +42,9 @@ public class SpELCheckerTest {
         args[1] = 2;
         args[2] = 3;
         ctx.setAttribute(MagicMark.ARGS_NAME, args);
-        ctx.setAttribute(MagicMark.EXPRESSION, "#args[1] > #args[0]");
+        ctx.setAttribute(MagicMark.EXPRESSION, "#p[1] > #p[0]");
         Assert.assertTrue(checker.pass(ctx));
-        ctx.setAttribute(MagicMark.EXPRESSION, "#args[1] > #args[2]");
+        ctx.setAttribute(MagicMark.EXPRESSION, "#p[1] > #p[2]");
         Assert.assertFalse(checker.pass(ctx));
     }
 }

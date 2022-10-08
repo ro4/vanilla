@@ -1,6 +1,6 @@
 package me.ro4.vanilla;
 
-import me.ro4.vanilla.support.Context;
+import me.ro4.vanilla.check.Checker;
 import org.junit.Assert;
 import org.junit.Test;
 

@@ -10,5 +10,5 @@ import java.lang.annotation.Target;
 public @interface CheckRule {
     String expression() default "";
 
-    String message() default "check failed";
+    String message() default "failed";
 }

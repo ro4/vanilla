@@ -1,8 +1,9 @@
 package me.ro4.vanilla.annotation;
 
 import me.ro4.vanilla.CheckTemplate;
-import me.ro4.vanilla.SpELChecker;
-import me.ro4.vanilla.listener.CheckListener;
+import me.ro4.vanilla.check.DefaultExceptionProvider;
+import me.ro4.vanilla.check.ExceptionProvider;
+import me.ro4.vanilla.check.SpELChecker;
 import org.aopalliance.aop.Advice;
 import org.springframework.aop.Pointcut;
 import org.springframework.aop.support.AbstractPointcutAdvisor;
@@ -11,14 +12,10 @@ import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.BeanFactoryAware;
 import org.springframework.beans.factory.InitializingBean;
-import org.springframework.beans.factory.ListableBeanFactory;
+import org.springframework.beans.factory.NoSuchBeanDefinitionException;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.context.annotation.Role;
-import org.springframework.core.annotation.AnnotationAwareOrderComparator;
 import org.springframework.stereotype.Component;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @Role(BeanDefinition.ROLE_SUPPORT)
 @Component
@@ -42,18 +39,27 @@ public class CheckConfiguration extends AbstractPointcutAdvisor implements Initi
 
     @Override
     public void afterPropertiesSet() {
-        CheckTemplate checkTemplate = new CheckTemplate();
-        if (beanFactory instanceof ListableBeanFactory) {
-            List<CheckListener> listeners = new ArrayList<>(((ListableBeanFactory) beanFactory)
-                    .getBeansOfType(CheckListener.class).values());
-            AnnotationAwareOrderComparator.sort(listeners);
-            checkTemplate.setListeners(listeners.toArray(new CheckListener[0]));
-        }
-        checkTemplate.setChecker(new SpELChecker());
         pointcut = new ComposablePointcut(new CheckableMethodMatcher());
         CheckableMethodInterceptor checkableMethodInterceptor = new CheckableMethodInterceptor();
-        checkableMethodInterceptor.setCheckTemplate(checkTemplate);
+        checkableMethodInterceptor.setCheckTemplate(buildCheckTemplate());
+        checkableMethodInterceptor.setExceptionProvider(buildExceptionProvider());
         advice = checkableMethodInterceptor;
+    }
+
+    protected CheckTemplate buildCheckTemplate() {
+        CheckTemplate checkTemplate = new CheckTemplate();
+        checkTemplate.setChecker(new SpELChecker());
+        return checkTemplate;
+    }
+
+    protected ExceptionProvider<?> buildExceptionProvider() {
+        ExceptionProvider<?> exceptionProvider;
+        try {
+            exceptionProvider = beanFactory.getBean(ExceptionProvider.class);
+        } catch (NoSuchBeanDefinitionException e) {
+            exceptionProvider = new DefaultExceptionProvider();
+        }
+        return exceptionProvider;
     }
 
     @Override

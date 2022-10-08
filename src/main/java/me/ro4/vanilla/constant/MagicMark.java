@@ -5,5 +5,5 @@ public interface MagicMark {
 
     String MESSAGE = "message";
 
-    String ARGS_NAME = "args";
+    String ARGS_NAME = "p";
 }

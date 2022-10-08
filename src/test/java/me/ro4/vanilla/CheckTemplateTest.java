@@ -1,7 +1,8 @@
 package me.ro4.vanilla;
 
-import me.ro4.vanilla.listener.CheckListenerSupport;
-import me.ro4.vanilla.support.Context;
+import me.ro4.vanilla.check.Checker;
+import me.ro4.vanilla.check.SpELChecker;
+import me.ro4.vanilla.constant.MagicMark;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -18,9 +19,9 @@ public class CheckTemplateTest {
 
     @Test
     public void testTemplateRegular() {
-        checkTemplate.registerListener(new CheckListenerSupport() {
-        });
-        checkTemplate.check(new Context());
+        Context ctx = new Context();
+        ctx.setAttribute(MagicMark.EXPRESSION, "true");
+        checkTemplate.check(ctx);
         Checker checker = new SpELChecker();
         checkTemplate.setChecker(checker);
         Assert.assertEquals(checker, checkTemplate.getChecker());

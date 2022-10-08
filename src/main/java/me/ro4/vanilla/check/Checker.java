@@ -1,6 +1,6 @@
-package me.ro4.vanilla;
+package me.ro4.vanilla.check;
 
-import me.ro4.vanilla.support.Context;
+import me.ro4.vanilla.Context;
 
 public interface Checker {
 

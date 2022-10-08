@@ -9,4 +9,6 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface Checkable {
     CheckRule[] value() default {};
+
+    boolean stopOnFirstFailure() default true;
 }
