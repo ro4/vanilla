@@ -48,7 +48,7 @@ public class CheckConfiguration extends AbstractPointcutAdvisor implements Initi
 
     protected CheckTemplate buildCheckTemplate() {
         CheckTemplate checkTemplate = new CheckTemplate();
-        checkTemplate.setChecker(new SpELChecker());
+        checkTemplate.setChecker(new SpELChecker(beanFactory));
         return checkTemplate;
     }
 

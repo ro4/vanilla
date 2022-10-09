@@ -1,5 +1,6 @@
 package me.ro4.vanilla.annotation;
 
+import me.ro4.vanilla.CheckFailedException;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -8,7 +9,7 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-public class EnableVanillaTest {
+public class VanillaTest {
 
     private Service service;
 
@@ -29,7 +30,7 @@ public class EnableVanillaTest {
         try {
             service.methodWithAnno();
         } catch (Exception e) {
-            Assert.assertTrue(e instanceof IllegalArgumentException);
+            Assert.assertTrue(e instanceof CheckFailedException);
         }
     }
 
@@ -37,8 +38,8 @@ public class EnableVanillaTest {
     public void testReadArgsExpression() {
         try {
             service.method2("hello1");
-        } catch (Exception e) {
-            Assert.assertEquals("hello there", e.getMessage());
+        } catch (CheckFailedException e) {
+            Assert.assertTrue(e.getMessage().contains("hello there"));
         }
         service.method2("hello");
     }
@@ -47,14 +48,18 @@ public class EnableVanillaTest {
     public void testNotStopOnFirstFailed() {
         try {
             service.method3(1, 2);
-        } catch (Exception e) {
-            Assert.assertEquals("i1 > i2,i1 is zero", e.getMessage());
+        } catch (CheckFailedException e) {
+            Assert.assertTrue(
+                    e.getMessage().contains("i1 > i2")
+                            && e.getMessage().contains("i1 is zero")
+            );
         }
     }
 
     @Test
     public void testCallBeanMethod() {
         service.method4();
+        service.method5(2, 1);
     }
 
 
@@ -75,29 +80,38 @@ public class EnableVanillaTest {
 
         }
 
-        @Checkable(@CheckRule(expression = "#p[0] == 'hello'", message = "hello there"))
+        @Checkable(@CheckRule(expression = "#p0 == 'hello'", message = "hello there"))
         public void method2(String par) {
 
         }
 
         @Checkable(stopOnFirstFailure = false,
                 value = {
-                        @CheckRule(expression = "#p[0] > #p[1]", message = "i1 > i2"),
-                        @CheckRule(expression = "#p[0] == 0", message = "i1 is zero")
+                        @CheckRule(expression = "#p0 > #p1", message = "i1 > i2"),
+                        @CheckRule(expression = "#p0 == 0", message = "i1 is zero")
                 }
         )
         public void method3(int i1, int i2) {
 
         }
 
-
         @Checkable(@CheckRule(expression = "@service.beanMethod()"))
         public void method4() {
 
         }
 
+
+        @Checkable(@CheckRule(expression = "@service.i1GtI2(#p0, #p1)"))
+        public void method5(int i1, int i2) {
+
+        }
+
         public boolean beanMethod() {
             return true;
+        }
+
+        public boolean i1GtI2(int i1, int i2) {
+            return i1 > i2;
         }
     }
 

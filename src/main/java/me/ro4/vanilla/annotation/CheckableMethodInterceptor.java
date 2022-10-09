@@ -1,14 +1,13 @@
 package me.ro4.vanilla.annotation;
 
 import me.ro4.vanilla.CheckTemplate;
+import me.ro4.vanilla.Context;
+import me.ro4.vanilla.check.CheckResult;
 import me.ro4.vanilla.check.ExceptionProvider;
 import me.ro4.vanilla.constant.MagicMark;
-import me.ro4.vanilla.Context;
 import org.aopalliance.intercept.MethodInterceptor;
 import org.aopalliance.intercept.MethodInvocation;
-
-import java.util.ArrayList;
-import java.util.List;
+import org.springframework.validation.BindingResult;
 
 public class CheckableMethodInterceptor implements MethodInterceptor {
 
@@ -28,23 +27,25 @@ public class CheckableMethodInterceptor implements MethodInterceptor {
     public Object invoke(MethodInvocation methodInvocation) throws Throwable {
         Checkable anno = methodInvocation.getMethod().getAnnotation(Checkable.class);
         boolean stopOnFirstFailure = anno.stopOnFirstFailure();
-        List<Context> failed = new ArrayList<>();
         Object[] args = methodInvocation.getArguments();
+        BindingResult bindingResult = new CheckResult(methodInvocation.getMethod().getName());
         for (CheckRule checkRule : anno.value()) {
             Context ctx = new Context();
-            ctx.setAttribute(MagicMark.ARGS_NAME, args);
+            for (int i = 0; i < args.length; i++) {
+                ctx.setAttribute(MagicMark.ARGS_NAME + i, args[i]);
+            }
             ctx.setAttribute(MagicMark.EXPRESSION, checkRule.expression());
             ctx.setAttribute(MagicMark.MESSAGE, checkRule.message());
             if (checkTemplate.check(ctx)) {
                 continue;
             }
-            failed.add(ctx);
+            bindingResult.reject(checkRule.key(), checkRule.message());
             if (stopOnFirstFailure) {
                 break;
             }
         }
-        if (!failed.isEmpty()) {
-            Throwable throwable = exceptionProvider.produce(failed);
+        if (bindingResult.hasErrors()) {
+            RuntimeException throwable = exceptionProvider.produce(bindingResult);
             if (throwable != null) {
                 throw throwable;
             }

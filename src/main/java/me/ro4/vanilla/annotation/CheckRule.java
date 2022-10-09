@@ -11,4 +11,6 @@ public @interface CheckRule {
     String expression() default "";
 
     String message() default "failed";
+
+    String key() default "";
 }
