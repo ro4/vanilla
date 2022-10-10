@@ -39,7 +39,7 @@ public class CheckableMethodInterceptor implements MethodInterceptor {
             if (checkTemplate.check(ctx)) {
                 continue;
             }
-            bindingResult.reject(checkRule.key(), checkRule.message());
+            bindingResult.reject(checkRule.field(), checkRule.message());
             if (stopOnFirstFailure) {
                 break;
             }
