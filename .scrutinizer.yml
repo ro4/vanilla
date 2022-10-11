@@ -1,8 +1,7 @@
 # .scrutinizer.yml
-checks:
-  java:
-    code_rating: true
-    duplication: true
+#checks:
+#  java:
+#    code_rating: true
 
 build:
   nodes:
