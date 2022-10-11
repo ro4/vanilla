@@ -21,11 +21,11 @@ import org.springframework.stereotype.Component;
 @Component
 public class CheckConfiguration extends AbstractPointcutAdvisor implements InitializingBean, BeanFactoryAware {
 
-    private Advice advice;
+    private transient Advice advice;
 
-    private Pointcut pointcut;
+    private transient Pointcut pointcut;
 
-    private BeanFactory beanFactory;
+    private transient BeanFactory beanFactory;
 
     @Override
     public Pointcut getPointcut() {
@@ -53,17 +53,22 @@ public class CheckConfiguration extends AbstractPointcutAdvisor implements Initi
     }
 
     protected ExceptionProvider<?> buildExceptionProvider() {
-        ExceptionProvider<?> exceptionProvider;
         try {
-            exceptionProvider = beanFactory.getBean(ExceptionProvider.class);
+            return beanFactory.getBean(ExceptionProvider.class);
         } catch (NoSuchBeanDefinitionException e) {
-            exceptionProvider = new DefaultExceptionProvider();
+            return new DefaultExceptionProvider();
         }
-        return exceptionProvider;
     }
 
     @Override
     public void setBeanFactory(BeanFactory beanFactory) throws BeansException {
         this.beanFactory = beanFactory;
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other instanceof CheckConfiguration
+                && ((CheckConfiguration) other).getAdvice().equals(advice)
+                && ((CheckConfiguration) other).getPointcut().equals(pointcut);
     }
 }
