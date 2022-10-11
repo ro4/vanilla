@@ -1,0 +1,19 @@
+# .scrutinizer.yml
+checks:
+  java:
+    code_rating: true
+    duplication: true
+
+build:
+  nodes:
+    coverage:
+      tests:
+        override:
+          - command: mvn clean package
+            coverage:
+              file: 'target/jacoco-report'
+              format: 'jacoco'
+    analysis:
+      tests:
+        override:
+          - java-scrutinizer-run --enable-security-analysis
