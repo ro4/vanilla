@@ -6,7 +6,7 @@
 
 #### 1. Maven 依赖
 
-添加 Maven 依赖，最新版本可在仓库里进行查看。
+首先，添加 Maven 依赖到你的项目里，最新版本可在中央仓库里进行搜索。
 
 ```xml
 
@@ -19,7 +19,7 @@
 
 #### 2. 启用 vanilla
 
-在 `@Configuration` 注解的类上添加 `@EnableVanilla` 以启用。
+然后，像其他 Spring 库一样，在 `@Configuration` 注解的类上添加 `@EnableVanilla` 以启用本库。
 
 ```java
 
@@ -32,7 +32,7 @@ public class SomeConfig {
 
 #### 3. 一个简单示例
 
-想象一个简单的例子，程序接受一个 `ConfigDTO` 输入，`ConfigDTO` 有三个属性：name, min 及 max。它们存在以下限制：
+思考一个简单的场景，程序接受一个 `ConfigDTO` 输入，`ConfigDTO` 有三个属性：name, min 及 max。它们存在以下限制：
 
 * max 的值必须比 min 的值大
 * name 在数据库中唯一
@@ -61,11 +61,10 @@ public class DemoController {
 }
 ```
 
-在以上示例的简单注解下，我们实现了max 的值必须比 min
+如以上代码片段所示，只需要简单注解下，我们实现了 max 的值必须比 min
 的值大的限制，如果这个时候传的值违反此限制，框架会抛出一个 `CheckFailedException` 异常。
 在实际项目中，如果需要定义抛出自定义校验异常，可以参考`4. 异常处理`章节。  
-可以看到，在 expression 中，我们使用了 `#p0` 来代表传入的 `dto` 参数，`0` 表示第一个参数，`1`
-表示第二个参数，就像数组下标一样。  
+在 expression 中，我们使用了 `#p0` 来代表传入的 `dto` 参数，`0` 表示第一个参数，`1` 表示第二个参数，就像数组下标一样。  
 接下来我们将实现数据库中 name 唯一这个限制，首先需要写一个 Spring bean 方法来进行数据库查询校验：
 
 ```java
