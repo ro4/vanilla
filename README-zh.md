@@ -1,5 +1,9 @@
 ## Vanilla
 
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/ro4/vanilla/badges/quality-score.png?b=main)](https://scrutinizer-ci.com/g/ro4/vanilla/?branch=main)
+[![Code Coverage](https://scrutinizer-ci.com/g/ro4/vanilla/badges/coverage.png?b=main)](https://scrutinizer-ci.com/g/ro4/vanilla/?branch=main)
+[![Build Status](https://scrutinizer-ci.com/g/ro4/vanilla/badges/build.png?b=main)](https://scrutinizer-ci.com/g/ro4/vanilla/build-status/main)
+
 本项目主要实现了使用 SpEL 进行校验参数的功能。
 
 ### Quickstart

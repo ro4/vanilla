@@ -10,7 +10,7 @@ build:
         override:
           - command: mvn clean package
             coverage:
-              file: 'target/jacoco-report'
+              file: 'target/jacoco-report/jacoco.xml'
               format: 'jacoco'
     analysis:
       tests:

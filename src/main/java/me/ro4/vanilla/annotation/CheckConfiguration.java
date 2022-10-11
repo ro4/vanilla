@@ -64,11 +64,4 @@ public class CheckConfiguration extends AbstractPointcutAdvisor implements Initi
     public void setBeanFactory(BeanFactory beanFactory) throws BeansException {
         this.beanFactory = beanFactory;
     }
-
-    @Override
-    public boolean equals(Object other) {
-        return other instanceof CheckConfiguration
-                && ((CheckConfiguration) other).getAdvice().equals(advice)
-                && ((CheckConfiguration) other).getPointcut().equals(pointcut);
-    }
 }
