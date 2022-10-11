@@ -85,7 +85,7 @@ public class VanillaTest {
 
         }
 
-        @Checkable(stopOnFirstFailure = false,
+        @Checkable(
                 value = {
                         @CheckRule(expression = "#p0 > #p1", message = "i1 > i2"),
                         @CheckRule(expression = "#p0 == 0", message = "i1 is zero")

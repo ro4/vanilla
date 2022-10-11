@@ -10,5 +10,5 @@ import java.lang.annotation.Target;
 public @interface Checkable {
     CheckRule[] value() default {};
 
-    boolean stopOnFirstFailure() default true;
+    boolean stopOnFirstFailure() default false;
 }
