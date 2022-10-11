@@ -2,6 +2,8 @@
 
 本项目主要实现了使用 SpEL 进行校验参数的功能。
 
+[TOC]
+
 ### Quickstart
 
 #### 1. Maven 依赖
@@ -64,7 +66,8 @@ public class DemoController {
 如以上代码片段所示，只需要简单注解下，我们实现了 max 的值必须比 min
 的值大的限制，如果这个时候传的值违反此限制，框架会抛出一个 `CheckFailedException` 异常。
 在实际项目中，如果需要定义抛出自定义校验异常，可以参考`4. 异常处理`章节。  
-在 expression 中，我们使用了 `#p0` 来代表传入的 `dto` 参数，`0` 表示第一个参数，`1` 表示第二个参数，就像数组下标一样。  
+在 expression 中，我们使用了 `#p0` 来代表传入的 `dto` 参数，`0` 表示第一个参数，`1` 表示第二个参数，就像数组下标一样。
+
 接下来我们将实现数据库中 name 唯一这个限制，首先需要写一个 Spring bean 方法来进行数据库查询校验：
 
 ```java
@@ -77,7 +80,7 @@ public class ConfigService {
 }
 ```
 
-Then, add a new `@CheckRule`:
+在上面的示例代码中再加入一条 `@CheckRule`:
 
 ```java
 
