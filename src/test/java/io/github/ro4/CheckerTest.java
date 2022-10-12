@@ -1,6 +1,6 @@
-package me.ro4.vanilla;
+package io.github.ro4;
 
-import me.ro4.vanilla.check.Checker;
+import io.github.ro4.check.Checker;
 import org.junit.Assert;
 import org.junit.Test;
 

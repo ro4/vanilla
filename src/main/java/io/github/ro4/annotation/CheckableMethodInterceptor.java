@@ -1,10 +1,10 @@
-package me.ro4.vanilla.annotation;
+package io.github.ro4.annotation;
 
-import me.ro4.vanilla.CheckTemplate;
-import me.ro4.vanilla.Context;
-import me.ro4.vanilla.check.CheckResult;
-import me.ro4.vanilla.check.ExceptionProvider;
-import me.ro4.vanilla.constant.MagicMark;
+import io.github.ro4.CheckTemplate;
+import io.github.ro4.Context;
+import io.github.ro4.check.CheckResult;
+import io.github.ro4.check.ExceptionProvider;
+import io.github.ro4.constant.MagicMark;
 import org.aopalliance.intercept.MethodInterceptor;
 import org.aopalliance.intercept.MethodInvocation;
 import org.springframework.validation.BindingResult;

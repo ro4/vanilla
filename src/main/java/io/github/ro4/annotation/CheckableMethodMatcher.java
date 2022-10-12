@@ -1,4 +1,4 @@
-package me.ro4.vanilla.annotation;
+package io.github.ro4.annotation;
 
 import org.springframework.aop.MethodMatcher;
 

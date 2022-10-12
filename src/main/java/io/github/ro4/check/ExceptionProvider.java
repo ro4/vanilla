@@ -1,4 +1,4 @@
-package me.ro4.vanilla.check;
+package io.github.ro4.check;
 
 import org.springframework.validation.BindingResult;
 

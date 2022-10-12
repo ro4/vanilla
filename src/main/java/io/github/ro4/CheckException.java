@@ -1,4 +1,4 @@
-package me.ro4.vanilla;
+package io.github.ro4;
 
 public class CheckException extends RuntimeException {
     CheckException(String msg) {

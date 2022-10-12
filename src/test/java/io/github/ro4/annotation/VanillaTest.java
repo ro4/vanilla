@@ -1,6 +1,6 @@
-package me.ro4.vanilla.annotation;
+package io.github.ro4.annotation;
 
-import me.ro4.vanilla.CheckFailedException;
+import io.github.ro4.CheckFailedException;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;

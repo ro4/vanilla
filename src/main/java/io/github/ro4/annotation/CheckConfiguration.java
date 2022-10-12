@@ -1,9 +1,9 @@
-package me.ro4.vanilla.annotation;
+package io.github.ro4.annotation;
 
-import me.ro4.vanilla.CheckTemplate;
-import me.ro4.vanilla.check.DefaultExceptionProvider;
-import me.ro4.vanilla.check.ExceptionProvider;
-import me.ro4.vanilla.check.SpELChecker;
+import io.github.ro4.CheckTemplate;
+import io.github.ro4.check.DefaultExceptionProvider;
+import io.github.ro4.check.ExceptionProvider;
+import io.github.ro4.check.SpELChecker;
 import org.aopalliance.aop.Advice;
 import org.springframework.aop.Pointcut;
 import org.springframework.aop.support.AbstractPointcutAdvisor;

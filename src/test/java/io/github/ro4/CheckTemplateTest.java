@@ -1,8 +1,8 @@
-package me.ro4.vanilla;
+package io.github.ro4;
 
-import me.ro4.vanilla.check.Checker;
-import me.ro4.vanilla.check.SpELChecker;
-import me.ro4.vanilla.constant.MagicMark;
+import io.github.ro4.check.Checker;
+import io.github.ro4.check.SpELChecker;
+import io.github.ro4.constant.MagicMark;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;

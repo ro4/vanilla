@@ -1,4 +1,4 @@
-package me.ro4.vanilla.constant;
+package io.github.ro4.constant;
 
 public interface MagicMark {
     String EXPRESSION = "expression";

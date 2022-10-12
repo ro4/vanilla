@@ -1,4 +1,4 @@
-package me.ro4.vanilla;
+package io.github.ro4;
 
 import org.springframework.lang.Nullable;
 import org.springframework.util.Assert;

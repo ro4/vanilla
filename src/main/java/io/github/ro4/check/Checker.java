@@ -1,6 +1,6 @@
-package me.ro4.vanilla.check;
+package io.github.ro4.check;
 
-import me.ro4.vanilla.Context;
+import io.github.ro4.Context;
 
 public interface Checker {
 

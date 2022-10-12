@@ -1,6 +1,6 @@
-package me.ro4.vanilla.check;
+package io.github.ro4.check;
 
-import me.ro4.vanilla.CheckFailedException;
+import io.github.ro4.CheckFailedException;
 import org.springframework.validation.BindingResult;
 
 
