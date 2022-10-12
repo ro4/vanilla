@@ -15,7 +15,7 @@
 ```xml
 
 <dependency>
-    <groupId>me.ro4</groupId>
+    <groupId>io.github.ro4</groupId>
     <artifactId>vanilla</artifactId>
     <version>{LATEST-VERSION}</version>
 </dependency>

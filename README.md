@@ -17,7 +17,7 @@ First, add maven dependency to pom.xml of your project, you can find the latest 
 ```xml
 
 <dependency>
-    <groupId>me.ro4</groupId>
+    <groupId>io.github.ro4</groupId>
     <artifactId>vanilla</artifactId>
     <version>{LATEST-VERSION}</version>
 </dependency>
