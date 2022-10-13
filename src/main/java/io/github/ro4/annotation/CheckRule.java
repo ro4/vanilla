@@ -10,6 +10,10 @@ import java.lang.annotation.Target;
 public @interface CheckRule {
     String expression() default "";
 
+    String andExpression() default "";
+
+    String orExpression() default "";
+
     String message() default "failed";
 
     String field() default "";

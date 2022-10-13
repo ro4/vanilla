@@ -7,6 +7,7 @@ import io.github.ro4.check.ExceptionProvider;
 import io.github.ro4.constant.MagicMark;
 import org.aopalliance.intercept.MethodInterceptor;
 import org.aopalliance.intercept.MethodInvocation;
+import org.springframework.util.ObjectUtils;
 import org.springframework.validation.BindingResult;
 
 public class CheckableMethodInterceptor implements MethodInterceptor {
@@ -34,7 +35,7 @@ public class CheckableMethodInterceptor implements MethodInterceptor {
             for (int i = 0; i < args.length; i++) {
                 ctx.setAttribute(MagicMark.ARGS_NAME + i, args[i]);
             }
-            ctx.setAttribute(MagicMark.EXPRESSION, checkRule.expression());
+            ctx.setAttribute(MagicMark.EXPRESSION, buildExpression(checkRule));
             ctx.setAttribute(MagicMark.MESSAGE, checkRule.message());
             if (checkTemplate.check(ctx)) {
                 continue;
@@ -51,5 +52,18 @@ public class CheckableMethodInterceptor implements MethodInterceptor {
             }
         }
         return methodInvocation.proceed();
+    }
+
+    protected String buildExpression(CheckRule checkRule) {
+        String expression = checkRule.expression();
+
+        if (!ObjectUtils.isEmpty(checkRule.andExpression())) {
+            expression = String.format("(%s) && (%s)", checkRule.expression(), checkRule.andExpression());
+        }
+
+        if (!ObjectUtils.isEmpty(checkRule.orExpression())) {
+            expression = String.format("(%s) || (%s)", expression, checkRule.orExpression());
+        }
+        return expression;
     }
 }

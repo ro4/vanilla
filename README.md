@@ -156,4 +156,21 @@ tips:
 
 #### @CheckRule
 
-`@CheckRule` is used to describe restrictions inside a `@Checkable`, multiple rules are supported, and each rule has three properties: `expression`, `message`, and `field`.
+`@CheckRule` is used to describe restrictions inside a `@Checkable`, multiple rules are supported, and each rule has five properties: `expression`, `andExpression`, `orExpression`, `message`, and `field`.     
+
+When an expression is way too long, `andExpression` and `orExpression` can be used to split a long expression into several short expressions, you can also use `+` to do so, but not elegant.    
+
+The expression will be built like below:
+
+```groovy
+String expression = checkRule.expression();
+
+if (!ObjectUtils.isEmpty(checkRule.andExpression())) {
+    expression = String.format("(%s) && (%s)", checkRule.expression(), checkRule.andExpression());
+}
+
+if (!ObjectUtils.isEmpty(checkRule.orExpression())) {
+    expression = String.format("(%s) || (%s)", expression, checkRule.orExpression());
+}
+return expression;
+```

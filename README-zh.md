@@ -152,4 +152,20 @@ tips:
 
 #### @CheckRule
 
-`@CheckRule` 注解用于 `@Checkable` 注解内部，如同本文之前的例子，支持多个校验规则。每个规则有 `expression`, `message`, 及 `field` 三个属性。
+`@CheckRule` 注解用于 `@Checkable` 注解内部，如同本文之前的例子，支持多个校验规则。每个规则有 `expression`, `andExpression`, `orExpression`, `message`, 及 `field` 五个属性。  
+
+当一个表达式过长的时候，为了代码显示美观，可以使用 `andExpression` 和 `orExpression` 把超长的表达式分解为几个短表达式。当然你也可以用字符串 `+` 的方式，但是那样显然不够优雅。   
+
+表达式的组合规则如下：
+```groovy
+String expression = checkRule.expression();
+
+if (!ObjectUtils.isEmpty(checkRule.andExpression())) {
+    expression = String.format("(%s) && (%s)", checkRule.expression(), checkRule.andExpression());
+}
+
+if (!ObjectUtils.isEmpty(checkRule.orExpression())) {
+    expression = String.format("(%s) || (%s)", expression, checkRule.orExpression());
+}
+return expression;
+```

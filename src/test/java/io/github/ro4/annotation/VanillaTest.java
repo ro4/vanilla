@@ -51,7 +51,7 @@ public class VanillaTest {
         } catch (CheckFailedException e) {
             Assert.assertTrue(
                     e.getMessage().contains("i1 > i2")
-                            && e.getMessage().contains("i1 is zero")
+                            && !e.getMessage().contains("i1 is zero")
             );
         }
     }
@@ -60,6 +60,11 @@ public class VanillaTest {
     public void testCallBeanMethod() {
         service.method4();
         service.method5(2, 1);
+    }
+
+    @Test
+    public void testAndOrExpression() {
+        service.methodAndOr();
     }
 
 
@@ -85,7 +90,7 @@ public class VanillaTest {
 
         }
 
-        @Checkable(
+        @Checkable(stopOnFirstFailure = true,
                 value = {
                         @CheckRule(expression = "#p0 > #p1", message = "i1 > i2"),
                         @CheckRule(expression = "#p0 == 0", message = "i1 is zero")
@@ -103,6 +108,14 @@ public class VanillaTest {
 
         @Checkable(@CheckRule(expression = "@service.i1GtI2(#p0, #p1)"))
         public void method5(int i1, int i2) {
+
+        }
+
+        @Checkable({
+                @CheckRule(expression = "true", andExpression = "false", orExpression = "true"),
+                @CheckRule(expression = "false", orExpression = "true")
+        })
+        public void methodAndOr() {
 
         }
 
