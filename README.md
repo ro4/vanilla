@@ -163,10 +163,10 @@ When an expression is way too long, `andExpression` and `orExpression` can be us
 The expression will be built like below:
 
 ```groovy
-String expression = checkRule.expression();
+ String expression = checkRule.expression();
 
 if (!ObjectUtils.isEmpty(checkRule.andExpression())) {
-    expression = String.format("(%s) && (%s)", checkRule.expression(), checkRule.andExpression());
+    expression = String.format("(%s) && (%s)", expression, checkRule.andExpression());
 }
 
 if (!ObjectUtils.isEmpty(checkRule.orExpression())) {

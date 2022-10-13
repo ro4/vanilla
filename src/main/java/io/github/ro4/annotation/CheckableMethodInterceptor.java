@@ -58,7 +58,7 @@ public class CheckableMethodInterceptor implements MethodInterceptor {
         String expression = checkRule.expression();
 
         if (!ObjectUtils.isEmpty(checkRule.andExpression())) {
-            expression = String.format("(%s) && (%s)", checkRule.expression(), checkRule.andExpression());
+            expression = String.format("(%s) && (%s)", expression, checkRule.andExpression());
         }
 
         if (!ObjectUtils.isEmpty(checkRule.orExpression())) {

@@ -158,10 +158,10 @@ tips:
 
 表达式的组合规则如下：
 ```groovy
-String expression = checkRule.expression();
+ String expression = checkRule.expression();
 
 if (!ObjectUtils.isEmpty(checkRule.andExpression())) {
-    expression = String.format("(%s) && (%s)", checkRule.expression(), checkRule.andExpression());
+    expression = String.format("(%s) && (%s)", expression, checkRule.andExpression());
 }
 
 if (!ObjectUtils.isEmpty(checkRule.orExpression())) {

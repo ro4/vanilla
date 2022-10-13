@@ -6,7 +6,7 @@
 
     <groupId>io.github.ro4</groupId>
     <artifactId>vanilla</artifactId>
-    <version>0.9.2</version>
+    <version>0.9.3</version>
     <name>Vanilla</name>
     <description>Using SpEL to do some complex validations</description>
     <url>https://github.com/ro4/vanilla</url>

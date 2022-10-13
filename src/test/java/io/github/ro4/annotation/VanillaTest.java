@@ -40,6 +40,8 @@ public class VanillaTest {
             service.method2("hello1");
         } catch (CheckFailedException e) {
             Assert.assertTrue(e.getMessage().contains("hello there"));
+            Assert.assertEquals(e, e.getBindingResult());
+            Assert.assertEquals(e.hashCode(), e.getBindingResult().hashCode());
         }
         service.method2("hello");
     }
