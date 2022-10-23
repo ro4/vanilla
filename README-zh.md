@@ -4,7 +4,9 @@
 [![Code Coverage](https://scrutinizer-ci.com/g/ro4/vanilla/badges/coverage.png?b=main)](https://scrutinizer-ci.com/g/ro4/vanilla/?branch=main)
 [![Build Status](https://scrutinizer-ci.com/g/ro4/vanilla/badges/build.png?b=main)](https://scrutinizer-ci.com/g/ro4/vanilla/build-status/main)
 
-本项目主要实现了使用 SpEL 进行校验参数的功能。
+本项目主要实现了使用 SpEL 进行校验参数的功能。  
+
+你也可以使用更简单的 [SpEL Validation](https://github.com/ro4/spel-validation) 作为替代。
 
 ### Quickstart
 
