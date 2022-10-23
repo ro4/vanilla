@@ -8,7 +8,7 @@
 
 Want use SpEL to do some complex validations? this project will help you.  
 
-May you want try [SpEL Validation](https://github.com/ro4/spel-validation) instead, more simple.  
+May you want try [SpEL Validation](https://github.com/ro4/spel-validation) instead, simpler.  
 
 ### Quickstart
 
