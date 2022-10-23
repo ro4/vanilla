@@ -6,7 +6,9 @@
 [![Build Status](https://scrutinizer-ci.com/g/ro4/vanilla/badges/build.png?b=main)](https://scrutinizer-ci.com/g/ro4/vanilla/build-status/main)
 
 
-Want use SpEL to do some complex validations? this project will help you.
+Want use SpEL to do some complex validations? this project will help you.  
+
+May you want try [SpEL Validation](https://github.com/ro4/spel-validation) instead, simpler.  
 
 ### Quickstart
 
